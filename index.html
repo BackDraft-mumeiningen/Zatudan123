@@ -125,7 +125,7 @@
         <b style="font-size:1.1em;">現在ルーム: <span id="current-room-display" style="color:var(--primary);">Lobby</span></b>
         <input type="text" id="room-input" placeholder="ルーム名" style="flex:1;">
         <input type="password" id="room-pass-input" placeholder="鍵" style="width:80px;">
-        <button class="btn-success" onclick="joinRoom()">入室</button>
+        <button class="btn-success" style="color:#111;" onclick="joinRoom()">入室</button>
         <button style="background:var(--warning); color:#111;" onclick="claimGM()">👑 GMになる</button>
       </div>
     </div>
@@ -189,7 +189,7 @@
     <div style="background:#181825; padding:20px; border-radius:12px;">
       <h4 style="margin-top:0;">⛏️ プロジェクト解析</h4>
       <input type="text" id="projectIdInput" placeholder="例: 123456789">
-      <button class="btn-success" style="width:100%;" onclick="mineResources()" id="mineBtn">解析実行</button>
+      <button class="btn-success" style="width:100%; color:#111;" onclick="mineResources()" id="mineBtn">解析実行</button>
       <div id="mineResult" style="margin-top:10px; color:var(--success);"></div>
     </div>
     <hr style="border-color:var(--surface2); margin:20px 0;">
@@ -207,7 +207,7 @@
       <label>称号: <select id="sel-title" onchange="applyProfile()"><option value="">なし</option></select></label>
       <label>装飾: <select id="sel-dec" onchange="applyProfile()"><option value="">なし</option></select></label>
       <label>エフェクト: <select id="sel-eff" onchange="applyProfile()"><option value="">なし</option></select></label>
-      <button class="btn-success" style="padding:15px;" onclick="saveUserData()">💾 保存</button>
+      <button class="btn-success" style="padding:15px; color:#111;" onclick="saveUserData()">💾 保存</button>
     </div>
   </div>
 
@@ -219,7 +219,7 @@
       <div id="gachaResult" style="margin-top:10px;"></div>
     </div>
     <h3 style="color:var(--secondary);">🤝 プレイヤー市場</h3>
-    <button class="btn-success" onclick="loadMarket()">市場を更新</button>
+    <button class="btn-success" style="color:#111;" onclick="loadMarket()">市場を更新</button>
     <div id="marketGrid" class="grid" style="margin-top:15px;"></div>
     <h4 style="margin-top:30px;">出品する</h4><div id="inventoryGrid" class="grid"></div>
   </div>
@@ -228,7 +228,7 @@
     // =========================================================================
     // 【重要】ここであなたのScratch認証用プロジェクトIDに書き換えてください！
     // =========================================================================
-    const AUTH_PROJECT_ID = "123456789"; 
+    const AUTH_PROJECT_ID = "1369351577"; 
 
     const SUPABASE_URL = "https://glpvrtccfjiyofxtzrsp.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_5yQ8ju-DgTg3gWhixRtRRg_2fIUxGpF";
