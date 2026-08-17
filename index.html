@@ -88,7 +88,7 @@
   <div class="card header">
     <div style="display:flex; align-items:center; gap:10px;">
       <div id="loginStatus" style="font-size:1.2em; font-weight:bold;">👤 ゲスト</div>
-      <button id="logoutBtn" style="background:var(--danger); color:#11111b; display:none; padding:5px 10px; font-size:0.8em;" onclick="logout()">ログアウト</button>
+      <button id="logoutBtn" style="background:var(--danger); color:#11111b; display:none; padding:5px 10px; font-size:0.8em; border:none; border-radius:4px; font-weight:bold; cursor:pointer;" onclick="logout()">ログアウト</button>
     </div>
     <div class="money-badge"><span id="moneyDisplay">0</span> G</div>
   </div>
@@ -226,7 +226,7 @@
 
   <script>
     // =========================================================================
-    // 【重要】ここであなたのScratch認証用プロジェクトIDに書き換えてください！
+    // あなたのScratch認証用プロジェクトID
     // =========================================================================
     const AUTH_PROJECT_ID = "1369351577"; 
 
@@ -271,7 +271,7 @@
     function logout() { localStorage.removeItem("scratch_id"); window.location.reload(); }
     function switchTab(id, btn) { document.querySelectorAll('.tab-content, .tab-btn').forEach(e => e.classList.remove('active')); document.getElementById(id).classList.add('active'); btn.classList.add('active'); }
 
-    // --- 【新】最強のクラウド変数認証システム ---
+    // --- 【新】最強のクラウド変数認証システム (中継プロキシ経由) ---
     function startCloudAuth() {
       const id = document.getElementById('loginId').value.trim();
       if(!id) return alert("Scratch IDを入力してください");
@@ -289,8 +289,11 @@
       document.getElementById('authErrorMsg').innerText = "";
       
       try {
-        // Scratchの公式クラウドデータAPIから履歴を取得
-        const res = await fetch(`https://clouddata.scratch.mit.edu/logs?projectid=${AUTH_PROJECT_ID}&limit=20&offset=0`);
+        // CORS回避のために「allorigins」プロキシを経由して公式クラウドデータを取得する
+        const targetUrl = `https://clouddata.scratch.mit.edu/logs?projectid=${AUTH_PROJECT_ID}&limit=40&offset=0`;
+        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
+        
+        const res = await fetch(proxyUrl);
         const logs = await res.json();
         
         // 履歴の中に、入力されたIDと生成したワンタイムコードが一致するものがあるか確認
@@ -303,7 +306,7 @@
           document.getElementById('authErrorMsg').innerText = "クラウド変数の送信が確認できません。プロジェクトでコードを入力してから数秒待って再試行してください。";
         }
       } catch(e) {
-        document.getElementById('authErrorMsg').innerText = "Scratchサーバーとの通信エラー";
+        document.getElementById('authErrorMsg').innerText = "通信エラーが発生しました。時間を置いてお試しください。";
       }
       btn.innerText = "本人確認を実行"; btn.disabled = false;
     }
